@@ -1,0 +1,2 @@
+<header class="topbar d-flex justify-content-between align-items-center px-3 py-2 border-bottom bg-white">
+<div class="fw-semibold"><?= APP_NAME ?></div><div><?= e($_SESSION['user']['full_name'] ?? '') ?> | <a href="<?= APP_URL ?>/logout.php">Logout</a></div></header>

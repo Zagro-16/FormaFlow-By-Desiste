@@ -1,0 +1,1 @@
+<?php require_once __DIR__ . '/../config/config.php'; require_role(['admin','docente']); set_flash('success','Reminder manuale accodato.'); redirect($_SERVER['HTTP_REFERER']??'dashboard.php');

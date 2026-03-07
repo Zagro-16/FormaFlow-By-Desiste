@@ -1,0 +1,1 @@
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h4 mb-0"><?= e($pageTitle ?? 'Pagina') ?></h1><?php if(!empty($pageAction)): ?><a href="<?= e($pageAction['url']) ?>" class="btn btn-primary btn-sm"><?= e($pageAction['label']) ?></a><?php endif; ?></div>

@@ -1,0 +1,1 @@
+<?php require_once __DIR__ . '/../config/config.php'; require_role('corsista'); set_flash('success','Quiz inviato'); redirect($_SERVER['HTTP_REFERER'] ?? 'corsista/quiz.php');
