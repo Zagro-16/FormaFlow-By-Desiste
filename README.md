@@ -1,29 +1,59 @@
 # FormaFlow By Desiste
-Piattaforma gestionale web per enti di formazione (admin, docenti, corsisti).
+Piattaforma gestionale web per enti di formazione (Admin, Docente, Corsista).
 
-## Stack
-- PHP 8+
+## Requisiti
+- PHP 8.1+
 - MySQL/MariaDB
-- HTML5, CSS3, JavaScript vanilla
-- Bootstrap 5
+- Apache (XAMPP/Laragon) **oppure** server PHP built-in
+- Estensioni PHP: `pdo`, `pdo_mysql`
 
-## Avvio rapido
-1. Crea database e importa:
+## 1) Configurazione database
+1. Crea DB `formaflow`.
+2. Importa nell'ordine:
    - `database/schema.sql`
    - `database/seed.sql`
-2. Configura `config/db.php`.
-3. Avvia con XAMPP/Apache puntando alla cartella progetto.
-4. Login demo (password: `password`):
-   - admin@formaflow.test
-   - docente@formaflow.test
-   - corsista@formaflow.test
+3. Configura credenziali in `config/db.php`.
 
-## Cron reminder
-Configura un cron job su `cron/reminder-cron.php` (es. ogni ora).
+## 2) Avvio in locale
+### Opzione A — XAMPP (consigliata)
+1. Copia la cartella progetto in `htdocs/FormaFlow-By-Desiste`.
+2. Avvia Apache + MySQL da XAMPP.
+3. Apri: `http://localhost/FormaFlow-By-Desiste/`
+
+### Opzione B — PHP built-in server
+1. Dalla root del progetto esegui:
+   ```bash
+   php -S 127.0.0.1:8000
+   ```
+2. Apri: `http://127.0.0.1:8000/index.php`
+
+> `APP_URL` viene calcolato automaticamente. Se sei su hosting/proxy, puoi forzarlo via variabile ambiente `APP_URL`.
+
+## 3) Login demo
+Password per tutti gli utenti demo: **Password123!**
+- admin@formaflow.test
+- docente@formaflow.test
+- corsista@formaflow.test
+
+## 4) Dipendenze opzionali (funzioni avanzate)
+Per reminder email e PDF:
+```bash
+composer require phpmailer/phpmailer dompdf/dompdf
+```
+
+## 5) Reminder automatici (cron)
+Script: `cron/reminder-cron.php`
+
+Esempio cron Linux (ogni ora):
+```cron
+0 * * * * /usr/bin/php /percorso/progetto/cron/reminder-cron.php >> /percorso/logs/reminder.log 2>&1
+```
 
 ## Struttura principale
-- `admin/`, `docente/`, `corsista/` aree ruolo
-- `actions/` endpoint POST
-- `ajax/` endpoint JSON
-- `includes/` layout condiviso
-- `database/` schema e seed
+- `admin/`, `docente/`, `corsista/`: aree per ruolo
+- `actions/`: endpoint POST operativi
+- `ajax/`: endpoint JSON
+- `includes/`: layout condiviso
+- `database/`: schema e seed
+- `assets/`: CSS/JS frontend
+- `uploads/`: materiali e attestati
