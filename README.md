@@ -57,3 +57,16 @@ Esempio cron Linux (ogni ora):
 - `database/`: schema e seed
 - `assets/`: CSS/JS frontend
 - `uploads/`: materiali e attestati
+
+
+## Troubleshooting login (errore colonna `full_name`)
+Se vedi errore tipo `Unknown column full_name`, significa che nel tuo MySQL esiste già una tabella `users` con schema diverso.
+
+Soluzione consigliata (sviluppo locale):
+1. Drop del DB `formaflow`.
+2. Reimporta `database/schema.sql` e `database/seed.sql`.
+
+In alternativa, puoi allineare la tabella manualmente con:
+```sql
+ALTER TABLE users ADD COLUMN full_name VARCHAR(150) NULL;
+```
