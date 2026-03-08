@@ -70,3 +70,12 @@ In alternativa, puoi allineare la tabella manualmente con:
 ```sql
 ALTER TABLE users ADD COLUMN full_name VARCHAR(150) NULL;
 ```
+
+
+## Troubleshooting redirect `/actions/index.php` Not Found
+Se dopo il login vieni reindirizzato a `/actions/index.php`, la causa è un `APP_URL` non allineato o una versione precedente del file `config/config.php`.
+
+Passi rapidi:
+1. Aggiorna il progetto all'ultima versione (fix già incluso).
+2. Se necessario, forza la base URL con variabile ambiente `APP_URL` (es. `http://localhost/FormaFlow-By-Desiste`).
+3. Riavvia Apache/PHP e svuota cache browser.

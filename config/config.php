@@ -6,8 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 /**
  * Configurazione base applicazione.
  *
- * APP_URL può essere impostato via variabile ambiente per hosting/proxy,
- * altrimenti viene calcolato automaticamente dalla richiesta HTTP corrente.
+ * APP_URL può essere impostato via variabile ambiente per hosting/proxy.
+ * In assenza, viene calcolato automaticamente risalendo alla root progetto
+ * (evitando base path errati quando la request passa da /actions, /ajax, ecc.).
  */
 define('APP_NAME', 'FormaFlow By Desiste');
 define('APP_TIMEZONE', 'Europe/Rome');
@@ -19,8 +20,29 @@ if (!empty($envAppUrl)) {
 } else {
     $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-    $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
-    define('APP_URL', $scheme . '://' . $host . ($basePath === '' ? '' : $basePath));
+
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
+    $scriptDir = rtrim($scriptDir, '/');
+    if ($scriptDir === '.') {
+        $scriptDir = '';
+    }
+
+    // Se la richiesta arriva da sottocartelle operative, risali alla root app.
+    $operationalDirs = ['/actions', '/ajax', '/admin', '/docente', '/corsista', '/cron', '/includes', '/config'];
+    foreach ($operationalDirs as $dir) {
+        if ($scriptDir === $dir) {
+            $scriptDir = '';
+            break;
+        }
+
+        if (str_ends_with($scriptDir, $dir)) {
+            $scriptDir = substr($scriptDir, 0, -strlen($dir));
+            break;
+        }
+    }
+
+    $basePath = rtrim($scriptDir, '/');
+    define('APP_URL', $scheme . '://' . $host . ($basePath !== '' ? $basePath : ''));
 }
 
 date_default_timezone_set(APP_TIMEZONE);
