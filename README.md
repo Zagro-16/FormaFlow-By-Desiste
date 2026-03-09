@@ -79,3 +79,11 @@ Passi rapidi:
 1. Aggiorna il progetto all'ultima versione (fix già incluso).
 2. Se necessario, forza la base URL con variabile ambiente `APP_URL` (es. `http://localhost/FormaFlow-By-Desiste`).
 3. Riavvia Apache/PHP e svuota cache browser.
+
+
+## Branding logo (logo.png / logo1.png)
+Per mostrare il logo in topbar/sidebar Admin inserisci il file in:
+- `assets/img/logo.png` (prioritario)
+- oppure `assets/img/logo1.png`
+
+Il sistema usa automaticamente il primo file trovato.
