@@ -1,1 +1,10 @@
-.stat-number{font-size:1.6rem;font-weight:700}.table thead th{background:#f1f5f9}
+.stat-number { font-size: 1.6rem; font-weight: 700; }
+.table thead th { background: #f1f5f9; white-space: nowrap; }
+
+#calendar .fc-toolbar-title { font-size: 1.1rem; }
+#calendar .fc-button { text-transform: capitalize; }
+
+@media (max-width: 767px) {
+    .stat-number { font-size: 1.3rem; }
+    .table { font-size: 0.9rem; }
+}
