@@ -19,9 +19,9 @@ if ($lessonId <= 0 || $studentId <= 0 || !in_array($status, ['present', 'absent'
 try {
     $stmt = $pdo->prepare('INSERT INTO attendance (lesson_id, student_id, status, via_qr, checkin_at) VALUES (?, ?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE status = VALUES(status), via_qr = VALUES(via_qr), checkin_at = NOW()');
     $stmt->execute([$lessonId, $studentId, $status, $viaQr]);
-    set_flash('success', 'Presenza salvata.');
+    set_flash('success', 'Presenza salvata con successo.');
 } catch (Throwable $e) {
-    set_flash('danger', 'Errore salvataggio presenza.');
+    set_flash('danger', 'Errore salvataggio presenza: ' . $e->getMessage());
 }
 
 redirect($_SERVER['HTTP_REFERER'] ?? 'admin/presenze.php');
